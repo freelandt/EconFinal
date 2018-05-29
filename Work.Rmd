@@ -65,8 +65,8 @@ data2 <- na.omit(Data)
 ```
 
 ```{r}
-data3 <- data2 %>% filter(aid >= 1)
-model1 <- lm(growth~aid+year, data = data3)
+data3 <- data2 %>% filter(aid > 0)
+model1 <- lm(growth~aid + pop, data = data3)
 summary(model1)
 plot(model1, which = 1)
 ggplot(data3, aes(x = aid, y = growth)) + geom_jitter() + stat_smooth(method = "lm")

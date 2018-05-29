@@ -36,9 +36,9 @@ countrydata <- gs_read(sheet)
 
 ```{r}
 # read in the wide CO2 data
-poverty <- read_excel("~/R/Econometrics/Tables/Poverty2.xlsx")
-aid <- read_excel("~/R/Econometrics/Tables/AidReceived.xlsx")
-gdpgrow <- read_excel("~/R/Econometrics/Tables/GDPGrow.xlsx")
+poverty <- read_excel("Poverty2.xlsx")
+aid <- read_excel("AidReceived.xlsx")
+gdpgrow <- read_excel("GDPGrow.xlsx")
 names(gdpgrow)[1] <- "country"
 names(poverty)[1] <- "country"
 names(aid)[1] <- "country"

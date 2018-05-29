@@ -2,7 +2,7 @@
 title: "Effect of Foreign Aid on GDP Growth"
 author: "Trevor Freeland"
 date: "May 29, 2018"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -21,7 +21,6 @@ trev knows coding
 ###Previous Work
 
 ##Methods
-
 
 ##Results
 

@@ -75,7 +75,34 @@ ggplot(data3, aes(x = aid, y = growth)) + geom_jitter() + stat_smooth(method = "
 
 ##Trevor
 
+```{r}
+growth.lm1 <- lm(growth~(aid + pop + lifeExp + gdpPercap)^2, data = data3)
+summary(growth.lm1)
+growth.lm2 <- lm(growth~aid * lifeExp, data = data3)
+anova(growth.lm1, growth.lm2) #Don't need the other variables.
 
+summary(growth.lm2)
+```
+
+```{r}
+Pov <- left_join(countrydata, poverty2)
+Pov <- left_join(Pov, aid2)
+Pov2 <- na.omit(Pov)
+Pov3 <- Pov2 %>% filter(aid > 1)
+
+pov.lm1 <- lm(poverty~(aid + pop + lifeExp + gdpPercap)^2, data = Pov3)
+summary(pov.lm1)
+pov.lm2 <- lm(poverty~aid + pop + lifeExp + gdpPercap, data = Pov3)
+anova(pov.lm1, pov.lm2) #Don't need the other variables.
+
+summary(pov.lm2)
+Pov3[c(46,110, 24), ]
+Pov4 <- Pov3[-46,]
+
+plot(poverty~aid, data = Pov3)
+povNew.lm1 <- lm(poverty~(aid + pop + lifeExp + gdpPercap)^2, data = Pov4)
+summary(povNew.lm1)
+```
 
 
 ##Piper

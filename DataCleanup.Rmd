@@ -1,0 +1,138 @@
+---
+title: "DataCleanup"
+author: "Trevor Freeland"
+date: "May 29, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(googlesheets)
+```
+
+```{r, results='hide'}
+# load in the online data
+sheet <- gs_url("https://docs.google.com/spreadsheets/d/163zuhH_nUXtsDfnnrzuDxJOj4D3Ago1ldEA960JZPmE/")
+countrydata <- gs_read(sheet)
+```
+
+```{r}
+# read in the wide CO2 data
+poverty <- read_excel("Poverty2.xlsx")
+aid <- read_excel("AidReceived.xlsx")
+gdpgrow <- read_excel("GDPGrow.xlsx")
+childDeath <- read_excel("ChildDeath.xlsx")
+LaborForce <- read_excel("LaborForce.xlsx")
+Unemployement <- read_excel("Unemployement.xlsx")
+GovShareHealthSpend <- read_excel("GovShareHealthSpend.xlsx")
+GovHealthSpending <- read_excel("GovHealthSpending.xlsx")
+FoodSupply <- read_excel("FoodSupply.xlsx")
+ContraceptiveUse <- read_excel("ContraceptiveUse.xlsx")
+GDPCap <- read_excel("GDPCap.xlsx")
+Population <- read_excel("Population.xlsx")
+LifeExp <- read_excel("LifeExpectancy.xlsx")
+
+names(gdpgrow)[1] <- "country"
+names(poverty)[1] <- "country"
+names(aid)[1] <- "country"
+names(childDeath)[1] <- "country"
+names(LaborForce)[1] <- "country"
+names(Unemployement)[1] <- "country"
+names(GovShareHealthSpend)[1] <- "country"
+names(GovHealthSpending)[1] <- "country"
+names(FoodSupply)[1] <- "country"
+names(ContraceptiveUse)[1] <- "country"
+names(GDPCap)[1] <- "country"
+names(Population)[1] <- "country"
+names(LifeExp)[1] <- "country"
+
+#convert it to long
+#Gather(Name of the variable that was the previous column names, Name of the variable that was in our data cells, grab everything except for the country variable)
+gdpgrow2 <- gdpgrow %>% gather(year, growth, -country) %>%
+  mutate(year = round(as.numeric(year))) 
+#%Growth per year
+
+poverty2 <- poverty %>% gather(year, poverty, -country) %>%
+  mutate(year = round(as.numeric(year)))
+#% Below $2 a week
+
+aid2 <- aid %>% gather(year, aid, -country) %>%
+  mutate(year = round(as.numeric(year)))
+#%of GNI of aid received
+
+childDeath2 <- childDeath %>% gather(year, childDeath, -country) %>%
+  mutate(year = round(as.numeric(year)))
+#0-5 year olds dying per 1,000 born
+
+LaborForce2 <- LaborForce %>% gather(year, LaborForce, -country) %>%
+  mutate(year = round(as.numeric(year)))
+#Age 15+ labour force participation rate
+
+Unemployement2 <- Unemployement %>% gather(year, Unemployement, -country) %>%
+  mutate(year = round(as.numeric(year)))
+#Age 15+ unemployement rate 
+
+GovShareHealthSpend2 <- GovShareHealthSpend %>% gather(year, GovShareHealthSpend, -country) %>%
+  mutate(year = round(as.numeric(year)))
+#Government share of total health spending
+
+GovHealthSpending2 <- GovHealthSpending %>% gather(year, GovHealthSpending, -country) %>%
+  mutate(year = round(as.numeric(year)))
+#Government health spending as % of total gov. spending
+
+FoodSupply2 <- FoodSupply %>% gather(year, FoodSupply, -country) %>%
+  mutate(year = round(as.numeric(year)))
+#Food supply divided by pop and 365. Kilocalories available on average for each person each day
+
+ContraceptiveUse2 <- ContraceptiveUse %>% gather(year, ContraceptiveUse, -country) %>%
+  mutate(year = round(as.numeric(year)))
+#Percent of women 15-49 using contraceptives
+
+GDPCap2 <- GDPCap %>% gather(year, GDPCap, -country) %>%
+  mutate(year = round(as.numeric(year)))
+#GDP/capita US$ inflation-adjusted
+
+Population2 <- Population %>% gather(year, Population, -country) %>%
+  mutate(year = round(as.numeric(year)))
+#Total population
+
+LifeExp2 <- LifeExp %>% gather(year, lifeExp, -country) %>%
+  mutate(year = round(as.numeric(year)))
+#Life expectancy in years
+
+Data <- left_join(LifeExp2, childDeath2) #40362 Full Cases
+Data <- left_join(Data, Population2) #15522 Full Cases
+Data <- left_join(Data, GDPCap2) #7556 Full Cases
+Data <- left_join(Data, FoodSupply2) #5839 Full Cases
+Data <- left_join(Data, gdpgrow2) #5782 Full Cases
+Data <- left_join(Data, GovHealthSpending2) #2013 Full cases
+Data <- left_join(Data, GovShareHealthSpend2) #2013 Full cases
+Data <- left_join(Data, LaborForce2) #1944
+Data <- left_join(Data, aid2) #1416
+
+
+
+
+
+
+#Adding both poverty2 and contraceptiveuse2 gives us 105. Meh Meh Meh. Could have 1, not both
+Data <- left_join(Data, poverty2) #382 - meh. 
+Data <- left_join(Data, ContraceptiveUse2) # 342 Full Cases boo
+
+
+
+Data <- left_join(Data, Unemployement2) #30 - Bad variable, will take out
+
+data2 <- na.omit(Data) #Checking for full cases
+
+test <- lm(lifeExp~. - country, data=data2) #At basic glance, we might not need aid. 
+summary(test)
+test2 <- lm(lifeExp~(. - country)^2, data=data2) #At more in depth glance, we might want aid. Can decide how we want to proceed. 
+summary(test2)
+
+```

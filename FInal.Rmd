@@ -2,7 +2,7 @@
 title: "Effect of Foreign Aid on GDP Growth"
 author: "Trevor Freeland"
 date: "May 29, 2018"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -20,7 +20,6 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F, comment = NA)
 ###Previous Work
 
 ##Methods
-
 
 ##Results
 

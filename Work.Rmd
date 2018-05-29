@@ -9,6 +9,69 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+---
+title: "FinalWork"
+author: "Trevor Freeland"
+date: "May 27, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(stargazer)
+library(pander)
+library(readxl)
+library(googlesheets)
+```
+
+```{r, results='hide'}
+# load in the online data
+sheet <- gs_url("https://docs.google.com/spreadsheets/d/163zuhH_nUXtsDfnnrzuDxJOj4D3Ago1ldEA960JZPmE/")
+countrydata <- gs_read(sheet)
+```
+
+```{r}
+# read in the wide CO2 data
+poverty <- read_excel("~/R/Econometrics/Tables/Poverty2.xlsx")
+aid <- read_excel("~/R/Econometrics/Tables/AidReceived.xlsx")
+gdpgrow <- read_excel("~/R/Econometrics/Tables/GDPGrow.xlsx")
+names(gdpgrow)[1] <- "country"
+names(poverty)[1] <- "country"
+names(aid)[1] <- "country"
+
+
+#convert it to long
+#Gather(Name of the variable that was the previous column names, Name of the variable that was in our data cells, grab everything except for the country variable)
+gdpgrow2 <- gdpgrow %>% gather(year, growth, -country) %>%
+  mutate(year = round(as.numeric(year)))
+
+poverty2 <- poverty %>% gather(year, poverty, -country) %>%
+  mutate(year = round(as.numeric(year)))
+
+aid2 <- aid %>% gather(year, aid, -country) %>%
+  mutate(year = round(as.numeric(year)))
+
+gdpgrow3 <- na.omit(gdpgrow2)
+aid3 <- na.omit(aid2)
+poverty3 <- na.omit(poverty2)
+
+Data <- left_join(countrydata, gdpgrow2)
+Data <- left_join(Data, aid2)
+data2 <- na.omit(Data)
+```
+
+```{r}
+data3 <- data2 %>% filter(aid >= 1)
+model1 <- lm(growth~aid+year, data = data3)
+summary(model1)
+plot(model1, which = 1)
+ggplot(data3, aes(x = aid, y = growth)) + geom_jitter() + stat_smooth(method = "lm")
+```
+
 
 ##Trevor
 

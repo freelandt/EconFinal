@@ -10,7 +10,6 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F, comment = NA)
 ```
 
 ##Abstract
-trev knows coding
 
 ##Introduction
 

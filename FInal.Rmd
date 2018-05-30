@@ -29,7 +29,13 @@ Some previous work stuff
 
 ##Methods
 
-Give a how the data was collected, what the data is and what is in the data. Describing the variables.
+Give a how the data was collected --
+what the data is and what is in the data -
+Describing the variables - Need to know if we have any other important variables to look at before we can continue.
+
+The data we used was assembled from smaller datasets that were gotten from Gapminder World. The data from gapminder was provided by the World Bank, World Health Organization and Gapminder themselves. We combined these smaller data sets to give us a data set containing all of the variables that we were intested in examining. Our data has various country level information taken between the years 19XX and 20XX. Each observation in our data set was a specific country in a specific year and all of the corresponding country level information, like population or gdp per capita, for that country in that year. Overall our data contains X complete observations with Y variables per observation. 
+
+For a full overview of each individual variable in our data set, see description below:
 
 ##Results
 

@@ -37,6 +37,17 @@ The data we used was assembled from smaller datasets that were gotten from Gapmi
 
 For a full overview of each individual variable in our data set, see description below:
 
+country = Name of Country  
+year = Year our variables were measured for  
+lifeExp = Average life expectancy (years)  
+Population = Total population  
+GDPCap = GDP/capita (US$ inflation-adjusted)  
+FoodSupply = Kilocalories available on average for each person each day (Kilocalories)  
+growth = GDP growth per year (%)  
+GovHealthSpending = Government health spending as % of total gov. spending  
+GovShareHealthSpend = Government share of total health spending (%)  
+LaborForce = Age 15+ labour force participation rate (%)  
+
 ##Results
 
 Start this sections with data visualization. Then move on to say final model and give summary of model, then interpretations. 
@@ -47,9 +58,15 @@ Start this sections with data visualization. Then move on to say final model and
 
 This is where we can talk about any heteroscedasticity we found, which I am sure we will have, we will also probably have some sort of geographical relationship for our residuals which we just won't be correcting for, but could with random effects. 
 
+We also probably won't have lifestyle variables. 
+
+We have some outliers, but taking them out doesn't seem to change the coefficients much so just leaving them in. 
+
+We could also potentilly have some polynomial terms that could have been significant. 
+
 ###Limitations and Future Work
 
-With this type of study we must make it clear that we are looking at association and not causation. Our results do not indicate that by increasing X we cause an increase in average life expectancy in a country. Another limitation is that we could be missing explanatory variables in our initial model and so some of the associations that we found may be significant because we are missing other explanatory variables. If we had more time we would have liked to found more observations that contained some other variable that were mentioned in some of the papers like (INSERT SOME VARIABLE THAT WE DIDN'T FIND). It also would have been interesting to look at the possible different factors that are significant in different geographical areas of the world. For example fitting a model for average life expectancy in North America and fitting a model for life expectancy in Africa and then comparing what variables were significant in either model and trying to figure out why some things may have been significant in one model and not the other. 
+With this type of study we must make it clear that we are looking at association and not causation. Our results do not indicate that by increasing X we cause an increase in average life expectancy in a country. Another limitation is that we could be missing explanatory variables in our initial model and so some of the associations that we found may be significant because we are missing other explanatory variables. If we had more time we would have liked to found more observations that contained some other variables that were mentioned in some of the papers like (INSERT SOME VARIABLE THAT WE DIDN'T FIND).(LIFESTYLE VARIABLES, SMOKING AND ALCOHOL USE) It also would have been interesting to look at the possible different factors that are significant in different geographical areas of the world. For example fitting a model for average life expectancy in North America and fitting a model for life expectancy in Africa and then comparing what variables were significant in either model and trying to figure out why some things may have been significant in one model and not the other. 
 
 In the future it would be interesting to also look at this model with a heirarchichal linear regression model, and seeing if after accounting for differences between country and continent if some of the variables we deemed significant in our model would still be significant, and looking at the changes in effect after adding all of the random effects. 
 

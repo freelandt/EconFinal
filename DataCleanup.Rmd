@@ -13,12 +13,16 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(readxl)
 library(googlesheets)
+library(stargazer)
+library(pander)
+library(lmtest)
 ```
 
 ```{r, results='hide'}
 # load in the online data
 sheet <- gs_url("https://docs.google.com/spreadsheets/d/163zuhH_nUXtsDfnnrzuDxJOj4D3Ago1ldEA960JZPmE/")
 countrydata <- gs_read(sheet)
+continents <- countrydata %>% select(country, continent)
 ```
 
 ```{r}
@@ -105,34 +109,57 @@ LifeExp2 <- LifeExp %>% gather(year, lifeExp, -country) %>%
   mutate(year = round(as.numeric(year)))
 #Life expectancy in years
 
-Data <- left_join(LifeExp2, childDeath2) #40362 Full Cases
+Data <- left_join(LifeExp2, LaborForce2) #40362 Full Cases
 Data <- left_join(Data, Population2) #15522 Full Cases
 Data <- left_join(Data, GDPCap2) #7556 Full Cases
 Data <- left_join(Data, FoodSupply2) #5839 Full Cases
 Data <- left_join(Data, gdpgrow2) #5782 Full Cases
 Data <- left_join(Data, GovHealthSpending2) #2013 Full cases
 Data <- left_join(Data, GovShareHealthSpend2) #2013 Full cases
-Data <- left_join(Data, LaborForce2) #1944
-Data <- left_join(Data, aid2) #1416
 
+data2 <- na.omit(Data) #Checking for full cases
+data2 <- as.data.frame(data2)
 
-
-
-
-
+Data <- left_join(Data, aid2) #1416 Leaving out aid, since some countries never received it.
 #Adding both poverty2 and contraceptiveuse2 gives us 105. Meh Meh Meh. Could have 1, not both
 Data <- left_join(Data, poverty2) #382 - meh. 
 Data <- left_join(Data, ContraceptiveUse2) # 342 Full Cases boo
-
-
-
 Data <- left_join(Data, Unemployement2) #30 - Bad variable, will take out
 
-data2 <- na.omit(Data) #Checking for full cases
+```
 
-test <- lm(lifeExp~. - country, data=data2) #At basic glance, we might not need aid. 
+##EDA
+
+```{r}
+stargazer(data2, type = 'text', median = T)
+
+ggplot(data2, aes(x = LaborForce, y = lifeExp)) + geom_point() + stat_smooth(method = 'lm')
+ggplot(data2, aes(x = log(GDPCap), y = lifeExp)) + geom_point() + stat_smooth(method = 'lm')
+ggplot(data2, aes(x = FoodSupply, y = lifeExp)) + geom_point() + stat_smooth(method = 'lm')
+ggplot(data2, aes(x = growth, y = lifeExp)) + geom_point() + stat_smooth(method = "lm")
+ggplot(data2, aes(x = GovHealthSpending, y = lifeExp)) + geom_point() + stat_smooth(method = 'lm')
+ggplot(data2, aes(x = year, y = lifeExp)) + geom_jitter() + stat_smooth(method = 'lm')
+ggplot()
+data3 <- data2 %>% filter(Population < 500000000)
+data4 <- data2 %>% filter(growth > 0) %>% filter(growth < 50)
+ggplot(data2, aes(x = log(Population), y = lifeExp)) + geom_point() + stat_smooth(method = 'lm')
+```
+
+
+```{r}
+test <- lm(lifeExp~. - country  - GDPCap - Population + log(Population) + log(GDPCap), data=data2)  
 summary(test)
-test2 <- lm(lifeExp~(. - country)^2, data=data2) #At more in depth glance, we might want aid. Can decide how we want to proceed. 
+test2 <- update(test, data = data3)
 summary(test2)
+plot(test)
 
+
+anova(test, test2)
+test3 <- update(test2, .~. -GovShareHealthSpend)
+summary(test3)
+anova(test2, test3)
+```
+
+```{r}
+stargazer(test2, test, type = 'text')
 ```

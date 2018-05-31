@@ -14,8 +14,12 @@ library(tidyverse)
 library(readxl)
 library(googlesheets)
 library(stargazer)
+library(plm)
 library(pander)
 library(lmtest)
+library(orcutt)
+library(sandwich)
+library(het.test)
 ```
 
 ```{r, results='hide'}
@@ -139,9 +143,11 @@ ggplot(data2, aes(x = FoodSupply, y = lifeExp)) + geom_point() + stat_smooth(met
 ggplot(data2, aes(x = growth, y = lifeExp)) + geom_point() + stat_smooth(method = "lm")
 ggplot(data2, aes(x = GovHealthSpending, y = lifeExp)) + geom_point() + stat_smooth(method = 'lm')
 ggplot(data2, aes(x = year, y = lifeExp)) + geom_jitter() + stat_smooth(method = 'lm')
-ggplot()
+
 data3 <- data2 %>% filter(Population < 500000000)
 data4 <- data2 %>% filter(growth > 0) %>% filter(growth < 50)
+data5 <- data2
+data5$country <- as.factor(data5$country)
 ggplot(data2, aes(x = log(Population), y = lifeExp)) + geom_point() + stat_smooth(method = 'lm')
 ```
 
@@ -149,16 +155,23 @@ ggplot(data2, aes(x = log(Population), y = lifeExp)) + geom_point() + stat_smoot
 ```{r}
 test <- lm(lifeExp~. - country  - GDPCap - Population + log(Population) + log(GDPCap), data=data2)  
 summary(test)
-test2 <- update(test, data = data3)
+test2 <- update(test,.~. + country)
 summary(test2)
 plot(test)
-
 
 anova(test, test2)
 test3 <- update(test2, .~. -GovShareHealthSpend)
 summary(test3)
 anova(test2, test3)
 ```
+
+```{r}
+model1 <- plm(lifeExp~. - country  - GDPCap - Population + log(Population) + log(GDPCap), data=data2, model = "pooling", index = c("year", "country"))
+```
+
+
+
+
 
 ```{r}
 stargazer(test2, test, type = 'text')

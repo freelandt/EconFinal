@@ -2,7 +2,7 @@
 title: "What Country Level Factors are Associated to Average Life Expectancy in a Country?"
 author: "Trevor Freeland"
 date: "May 29, 2018"
-output: pdf_document
+output: word_document
 ---
 
 ```{r setup, include=FALSE}
@@ -29,18 +29,14 @@ Some previous work stuff
 
 ##Methods
 
-Give a how the data was collected --
-what the data is and what is in the data -
-Describing the variables - Need to know if we have any other important variables to look at before we can continue.
-
-The data we used was assembled from smaller datasets that were gotten from Gapminder World. The data from gapminder was provided by the World Bank, World Health Organization and Gapminder themselves. We combined these smaller data sets to give us a data set containing all of the variables that we were intested in examining. Our data has various country level information taken between the years 19XX and 20XX. Each observation in our data set was a specific country in a specific year and all of the corresponding country level information, like population or gdp per capita, for that country in that year. Overall our data contains X complete observations with Y variables per observation. 
+The data we used was assembled from individual variable datasets that were downloaded from Gapminder World. The data we used from gapminder was provided to them by the World Bank, the World Health Organization and Gapminder themselves. We combined these smaller data sets into a data set containing all of the variables that we were intested in examining. Our data has various country level information taken between the years 1995 and 2007. Each observation in our data set is our set of country level information, like population or gdp per capita, for a specific country in that specific year. Overall our data contains 1944 complete observations with 10 variables per observation. 
 
 For a full overview of each individual variable in our data set, see description below:
 
 country = Name of Country  
 year = Year our variables were measured for  
-lifeExp = Average life expectancy (years)  
-Population = Total population  
+lifeExp = Average life expectancy (years)  (**Response Variable**)
+Population = Total population 
 GDPCap = GDP/capita (US$ inflation-adjusted)  
 FoodSupply = Kilocalories available on average for each person each day (Kilocalories)  
 growth = GDP growth per year (%)  
@@ -56,6 +52,12 @@ Start this sections with data visualization. Then move on to say final model and
 
 ###Robustness
 
+Our model seems to do worse for low fitted values for life expectancy than for higher values of life expectancy. There also appears to be a slight negative curvature in our residuals, indicating that there could be some higher order term missing in our model, or possibly of some geographical relationship that we are not accounting for. 
+
+When we checked our model for autocorrelation using the Breusch-Godfrey test where we got a p-value of .0003. This led us to test our coefficients with the Newey-West standard errors. When running a coefficient test with the Newey-West standard errors, none of the significance of any of our variables changed. 
+
+We also checked for heteroskedasticity in our model. Using the Breusch-Pagan test we could determine that there was heteroskedasticity in our model. When we corrected for the heteroskedasticity using the hccm function in R we ran another coefficient test and none of the significance of any of our variables changed again. Meaning all of our variables appear to stand the test of time. 
+
 This is where we can talk about any heteroscedasticity we found, which I am sure we will have, we will also probably have some sort of geographical relationship for our residuals which we just won't be correcting for, but could with random effects. 
 
 We also probably won't have lifestyle variables. 
@@ -66,9 +68,13 @@ We could also potentilly have some polynomial terms that could have been signifi
 
 ###Limitations and Future Work
 
-With this type of study we must make it clear that we are looking at association and not causation. Our results do not indicate that by increasing X we cause an increase in average life expectancy in a country. Another limitation is that we could be missing explanatory variables in our initial model and so some of the associations that we found may be significant because we are missing other explanatory variables. If we had more time we would have liked to found more observations that contained some other variables that were mentioned in some of the papers like (INSERT SOME VARIABLE THAT WE DIDN'T FIND).(LIFESTYLE VARIABLES, SMOKING AND ALCOHOL USE) It also would have been interesting to look at the possible different factors that are significant in different geographical areas of the world. For example fitting a model for average life expectancy in North America and fitting a model for life expectancy in Africa and then comparing what variables were significant in either model and trying to figure out why some things may have been significant in one model and not the other. 
+With this type of study we must make it clear that we are looking at association and not causation. Our results do not indicate that by increasing population in a country is going to cause an increase in average life expectancy in a country. Our results suggest that population size is associated with higher life expectancy, not the cause of it. 
 
-In the future it would be interesting to also look at this model with a heirarchichal linear regression model, and seeing if after accounting for differences between country and continent if some of the variables we deemed significant in our model would still be significant, and looking at the changes in effect after adding all of the random effects. 
+Another limitation of our work is that we could be missing explanatory variables in our initial model and so some of the associations that we found may be significant only because we are missing other explanatory variables. If we had more time we would have liked to found more observations that contained some other variables that were mentioned in some of the papers like smoking or alcohol use. These kinds of lifestyle variables could definitely have an effect on life expectancy but we were unable to find enough country level data on these lifestyle variables to use them in our model. 
+
+It also would have been interesting to look at the possible different factors that are significant in different geographical areas of the world. For example fitting a model for average life expectancy in North America and fitting a model for life expectancy in Africa and then comparing what variables were significant in either model and trying to figure out why some things may have been significant in one model and not the other. 
+
+In the future it would be interesting to also look at this model with a heirarchichal linear regression model. This type of model would be able to account for differences between country and continent over time and we could then examine if some of the variables we deemed significant in our model would still be significant. This also has the potential to change the effects of our variables after adding all of the random effects. 
 
 ##Appendix (If needed)
 

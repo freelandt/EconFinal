@@ -163,3 +163,35 @@ anova(test2, test3)
 ```{r}
 stargazer(test2, test, type = 'text')
 ```
+
+```{r}
+#Testing for autocorellation
+library(tseries)
+library(orcutt)
+(co.output <- cochrane.orcutt(test))
+dwtest(test)
+bgtest(test)
+runs.test(as.factor(sign(resid(test))))
+```
+
+```{r}
+library(sandwich)
+coeftest(test, vcov = NeweyWest(test))
+sqrt(diag(vcov(test)))
+sqrt(diag(NeweyWest(test)))
+```
+
+
+```{r}
+#Test for Hetroskedasciticity
+#Park Test
+bptest(test)
+library(car)
+library(het.test)
+test.hccm <- coeftest(test, vcov = hccm(test))
+test.hccmhc0 <- coeftest(test, vcov = hccm(test, type = "hc0"))
+stargazer(test, test.hccm, test.hccmhc0,
+          type = "text",
+          model.names = FALSE,
+          column.labels = c("OLS", "hccm default", "hccm White"))
+```

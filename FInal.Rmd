@@ -52,8 +52,6 @@ The data we used was assembled from individual variable datasets that were downl
 
 For a full overview of each individual variable in our data set, see description below:
 
-<<<<<<< HEAD
-=======
 country = Name of Country  
 year = Year our variables were measured for  
 lifeExp = Average life expectancy (years)  (**Response Variable**)
@@ -65,7 +63,6 @@ GovHealthSpending = Government health spending as % of total gov. spending
 GovShareHealthSpend = Government share of total health spending (%)  
 LaborForce = Age 15+ labour force participation rate (%)  
 
->>>>>>> f697b8c072dfeb5248ff0ad9616c03dce1fa231a
 ##Results
 
 Start this sections with data visualization. Then move on to say final model and give summary of model, then interpretations. 
@@ -84,15 +81,11 @@ This is where we can talk about any heteroscedasticity we found, which I am sure
 
 ###Limitations and Future Work
 
-<<<<<<< HEAD
-With this type of study we must make it clear that we are looking at association and not causation. Our results do not indicate that by increasing X we cause an increase in average life expectancy in a country. Another limitation is that we could be missing explanatory variables in our initial model and so some of the associations that we found may be significant because we are missing other explanatory variables. If we had more time we would have liked to found more observations that contained some other variable that were mentioned in some of the papers like (INSERT SOME VARIABLE THAT WE DIDN'T FIND). It also would have been interesting to look at the possible different factors that are significant in different geographical areas of the world. For example fitting a model for average life expectancy in North America and fitting a model for life expectancy in Africa and then comparing what variables were significant in either model and trying to figure out why some things may have been significant in one model and not the other. 
-=======
 With this type of study we must make it clear that we are looking at association and not causation. Our results do not indicate that by increasing population in a country is going to cause an increase in average life expectancy in a country. Our results suggest that population size is associated with higher life expectancy, not the cause of it. 
 
 Another limitation of our work is that we could be missing explanatory variables in our initial model and so some of the associations that we found may be significant only because we are missing other explanatory variables. If we had more time we would have liked to found more observations that contained some other variables that were mentioned in some of the papers like smoking or alcohol use. These kinds of lifestyle variables could definitely have an effect on life expectancy but we were unable to find enough country level data on these lifestyle variables to use them in our model. 
 
 It also would have been interesting to look at the possible different factors that are significant in different geographical areas of the world. For example fitting a model for average life expectancy in North America and fitting a model for life expectancy in Africa and then comparing what variables were significant in either model and trying to figure out why some things may have been significant in one model and not the other. 
->>>>>>> f697b8c072dfeb5248ff0ad9616c03dce1fa231a
 
 In the future it would be interesting to also look at this model with a heirarchichal linear regression model. This type of model would be able to account for differences between country and continent over time and we could then examine if some of the variables we deemed significant in our model would still be significant. This also has the potential to change the effects of our variables after adding all of the random effects. 
 

@@ -15,7 +15,8 @@ Things matter
 
 ##Introduction
 
-This is a paper
+The life expectancy of the citizens of a country is one of the most important indicators of well-being of a country, as people who live longer will not only produce longer within society, but will likely be more productive as well, due to being in a better state of health. States across th globe are unable to focus on important issues such as education or economic growth, as they must first prioritize the health of their citizens. It is in the best interest of every country, and every individual within each country, to identify and improve the factors that increase their life expectancy. Historically, it has been widely accepted that higher levels of GDP can be associated with higher life expectancy (Schnabel and Eilers, 2009). However, there is much more 
+
 
 ##Background
 
@@ -27,7 +28,7 @@ Countries that are more "well-off" will probably live longer.
 
 ###Previous Work
 
-
+GDP talk about how it is afffected and affects life expectancy, why we chose to put as independent variable
 https://www.jstor.org/stable/pdf/20062079.pdf?refreqid=excelsior%3A0f47169a4aafc4701062c76077b5b13e
 
  Since Auster, Leveson, and Sarachek, several economic studies have attempted to answer these

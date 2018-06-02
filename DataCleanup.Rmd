@@ -31,25 +31,22 @@ data2 <- data2[,-1]
 ##EDA
 
 ```{r}
-stargazer(data2, type = 'text', median = T)
+#Summary Stats
+stargazer(data2, type = "text", median = T)
 
+#Exploratory plots
 ggplot(data2, aes(x = LaborForce, y = lifeExp)) + geom_point() + stat_smooth(method = 'lm')
 ggplot(data2, aes(x = log(GDPCap), y = lifeExp)) + geom_point() + stat_smooth(method = 'lm')
 ggplot(data2, aes(x = FoodSupply, y = lifeExp)) + geom_point() + stat_smooth(method = 'lm')
 ggplot(data2, aes(x = growth, y = lifeExp)) + geom_point() + stat_smooth(method = "lm")
 ggplot(data2, aes(x = GovHealthSpending, y = lifeExp)) + geom_point() + stat_smooth(method = 'lm')
 ggplot(data2, aes(x = year, y = lifeExp)) + geom_jitter() + stat_smooth(method = 'lm')
-
-data3 <- data2 %>% filter(Population < 500000000)
-data4 <- data2 %>% filter(growth > 0) %>% filter(growth < 50)
-data5 <- data2
-data5$country <- as.factor(data5$country)
 ggplot(data2, aes(x = log(Population), y = lifeExp)) + geom_point() + stat_smooth(method = 'lm')
 ```
 
 
 ```{r}
-#Our model is named test. That is a bad name. Too late.
+#Our model is named test. That is a bad name.
 test <- lm(lifeExp~. - country  - GDPCap - Population + log(Population) + log(GDPCap), data=data2)  
 summary(test)
 ```

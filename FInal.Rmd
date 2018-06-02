@@ -19,7 +19,10 @@ The life expectancy of the citizens of a country is one of the most important in
 
 This study aims to analyze the relationship between life expectancy of countries around the world with various possible influencing variables, specifically labor force participation rate, population, GDP per capita, food supply, growth rate, government spending on healthcare as a percent of total expenditures, and government spending on healthcare as a percent of total expenditure on healthcare. With the goal of identifying what variables influence life expectancy, we will apply a linear regression model with life expectancy as our dependent variable. In order to estimate the relationship between the various variables and life expectancy, we used country level data from 1995 through 2007. We will describe the dataset in detail in our methods section below. 
 
-The paper begins by a general reference to previous studies on the relationship between life expectancy and the independent variables. Then, it lays out the variables and the sample of countries, as well as the lineaer model regression approach. Finally, the main empirical results are presented and the final conclusions are drawn.
+Probably can break into the background section right here and leave out the paragraph below. Probably won't need to break up both Theory and Previous work, can just mention them both under background.  
+
+The paper begins by a general reference to previous studies on the relationship between life expectancy and the independent variables. Then, it lays out the variables and the sample of countries, as well as the lineaer model regression approach. Finally, the main empirical results are presented and the final conclusions are drawn. 
+
 ##Background
 
 
@@ -51,15 +54,17 @@ Peltzman also considered a GLS regression of life expectancy at birth on wealth 
 
 ##Methods
 
-The data we used was assembled from individual variable datasets that were downloaded from Gapminder World. The data we used from gapminder was provided to them by the World Bank, the World Health Organization and Gapminder themselves. We combined these smaller data sets into a data set containing all of the variables that we were intested in examining. Our data has various country level information taken between the years 1995 and 2007. Each observation in our data set is our set of country level information, like population or gdp per capita, for a specific country in that specific year. Overall our data contains 1944 complete observations with 10 variables per observation. 
+The data we used was assembled from individual variable datasets that were downloaded from Gapminder World. The data we used from gapminder was provided to them by the World Bank, the World Health Organization and Gapminder themselves. We combined these smaller data sets into a data set containing all of the variables that we were intested in examining. 
+
+Our data has various country level information taken between the years 1995 and 2007. Each observation in our data set is a set of country level information, like population or gdp per capita, for a specific country in that specific year. Overall our dataset contains 1944 complete observations with 10 variables per observation. 
 
 For a full overview of each individual variable in our data set, see description below:
 
 country = Name of Country  
 year = Year our variables were measured for  
 lifeExp = Average life expectancy (years)  (**Response Variable**)
-Population = Total population 
-GDPCap = GDP/capita (US$ inflation-adjusted)  
+Population = Total population (log adjusted in model)  
+GDPCap = GDP/capita (US$ inflation-adjusted) (log adjusted in model)   
 FoodSupply = Kilocalories available on average for each person each day (Kilocalories)  
 growth = GDP growth per year (%)  
 GovHealthSpending = Government health spending as % of total gov. spending  
@@ -68,11 +73,23 @@ LaborForce = Age 15+ labour force participation rate (%)
 
 ##Results
 
+Table of summary statistics. NOting that Population and GDP per capita have really large ranges, so we should prolly transform them. For our model we used the log transformation. 
+
+Then look at some pretty cool plots. Probably about relevent relationships. Food Supply and one other, side by side. 
+
+Then giving the theoretical formulation of the model. Provide a table of the coefficients.
+
+Then interpret some shit.. Don't need to intepret all of them, Choose things to do. Can intepret it all. 
+
+
 Start this sections with data visualization. Then move on to say final model and give summary of model, then interpretations. 
+
+In other words, 0.095β is the expected change in Y when
+X is multiplied by 1.1, i.e. increases by 10%.
 
 ##Discusion
 
-###Robustness
+Combining robustness and limitations and future work into discussion. 
 
 Our model seems to do worse for low fitted values for life expectancy than for higher values of life expectancy. There also appears to be a slight negative curvature in our residuals, indicating that there could be some higher order term missing in our model, or possibly of some geographical relationship that we are not accounting for. 
 
@@ -81,8 +98,6 @@ When we checked our model for autocorrelation using the Breusch-Godfrey test whe
 We also checked for heteroskedasticity in our model. Using the Breusch-Pagan test we could determine that there was heteroskedasticity in our model. When we corrected for the heteroskedasticity using the hccm function in R we ran another coefficient test and none of the significance of any of our variables changed again. Meaning all of our variables appear to stand the test of time. 
 
 This is where we can talk about any heteroscedasticity we found, which I am sure we will have, we will also probably have some sort of geographical relationship for our residuals which we just won't be correcting for, but could with random effects. 
-
-###Limitations and Future Work
 
 With this type of study we must make it clear that we are looking at association and not causation. Our results do not indicate that by increasing population in a country is going to cause an increase in average life expectancy in a country. Our results suggest that population size is associated with higher life expectancy, not the cause of it. 
 

@@ -1,6 +1,6 @@
 ---
 title: "What Country Level Factors are Associated to Average Life Expectancy in a Country?"
-author: "Trevor Freeland"
+author: "Trevor Freeland, Piper Kurtz"
 date: "May 29, 2018"
 output: word_document
 ---

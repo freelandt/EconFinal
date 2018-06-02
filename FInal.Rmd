@@ -1,6 +1,6 @@
 ---
 title: "What Country Level Factors are Associated to Average Life Expectancy in a Country?"
-author: "Trevor Freeland"
+author: "Trevor Freeland, Piper Kurtz"
 date: "May 29, 2018"
 output: word_document
 ---
@@ -33,10 +33,7 @@ The life expectancy of the citizens of a country is one of the most important in
 
 This study aims to analyze the relationship between life expectancy of countries around the world with various possible influencing variables, specifically labor force participation rate, population, GDP per capita, food supply, growth rate, government spending on healthcare as a percent of total expenditures, and government spending on healthcare as a percent of total expenditure on healthcare. With the goal of identifying what variables influence life expectancy, we will apply a linear regression model with life expectancy as our dependent variable. In order to estimate the relationship between the various variables and life expectancy, we used country level data from 1995 through 2007. We will describe the dataset in detail in our methods section below. 
 
-Probably can break into the background section right here and leave out the paragraph below. Probably won't need to break up both Theory and Previous work, can just mention them both under background.  
-
-The paper begins by a general reference to previous studies on the relationship between life expectancy and the independent variables. Then, it lays out the variables and the sample of countries, as well as the lineaer model regression approach. Finally, the main empirical results are presented and the final conclusions are drawn. 
-
+The paper begins by a general reference to previous studies on the relationship between life expectancy and the independent variables. Then, it lays out the variables and the sample of countries, as well as the lineaer model regression approach. Finally, the main empirical results are presented and the final conclusions are drawn.
 ##Background
 
 
@@ -68,9 +65,7 @@ Peltzman also considered a GLS regression of life expectancy at birth on wealth 
 
 ##Methods
 
-The data we used was assembled from individual variable datasets that were downloaded from Gapminder World. The data we used from gapminder was provided to them by the World Bank, the World Health Organization and Gapminder themselves. We combined these smaller data sets into a data set containing all of the variables that we were intested in examining. 
-
-Our data has various country level information taken between the years 1995 and 2007. Each observation in our data set is a set of country level information, like population or gdp per capita, for a specific country in that specific year. Overall our dataset contains 1944 complete observations with 10 variables per observation. 
+The data we used was assembled from individual variable datasets that were downloaded from Gapminder World. The data we used from gapminder was provided to them by the World Bank, the World Health Organization and Gapminder themselves. We combined these smaller data sets into a data set containing all of the variables that we were intested in examining. Our data has various country level information taken between the years 1995 and 2007. Each observation in our data set is our set of country level information, like population or gdp per capita, for a specific country in that specific year. Overall our data contains 1944 complete observations with 10 variables per observation. 
 
 For a full overview of each individual variable in our data set, see description below:
 
@@ -78,7 +73,7 @@ country = Name of Country
 year = Year our variables were measured for  
 lifeExp = Average life expectancy (years)  (**Response Variable**)  
 Population = Total population (log adjusted in model)  
-GDPCap = GDP/capita (US$ inflation-adjusted) (log adjusted in model)   
+GDPCap = GDP/capita (US$ inflation-adjusted)  
 FoodSupply = Kilocalories available on average for each person each day (Kilocalories)  
 growth = GDP growth per year (%)  
 GovHealthSpending = Government health spending as % of total gov. spending  
@@ -86,6 +81,7 @@ GovShareHealthSpend = Government share of total health spending (%)
 LaborForce = Age 15+ labour force participation rate (%)  
 
 ##Results
+
 
 Summary statistics for our data are given in Table 1. As you can see in the table, population and GDP per capitahave larger standard deviations than their means. Due to this large variation in the variables, for our model and our analysis we used a log transformation of population and gdp per capita. Once we log transformed the variables they appeared normally distributed and so we felt confident continuing our analysis with them log transformed. Exploratory analysis was conducted to preview some of the relationships that we would be able to quantify with our model. In Figure 1 we can see 
 
@@ -110,19 +106,15 @@ Then giving the theoretical formulation of the model. Provide a table of the coe
 
 Then interpret some shit.. Don't need to intepret all of them, Choose things to do. Can intepret it all. 
 
-
-Start this sections with data visualization. Then move on to say final model and give summary of model, then interpretations. 
-
-In other words, 0.095β is the expected change in Y when
-X is multiplied by 1.1, i.e. increases by 10%.
-
 ##Discusion
+
 
 When we checked our model for autocorrelation and heteroskedasticity using the Breusch-Godfrey test  and the Breusch-Pagan test we could see that there was autocorrelation and heterosckedasticity in our model. The Breusch-Godfrey test for autocorrelation gave us a p-value of .0003. This led us to test our coefficients with the Newey-West autocorrelation corrected standard errors. When we ran a coefficient test with the Newey-West standard errors, the significance of all of our variables remained unchanged. We also ran another coefficient test with our heteroskedasticity corrected standard errors. Simlar to our test with the autocorrelated corrected standard errors, our test with the heteroskedasticity corrected errors did not change the significance of any of our variables. This is a good sign for our model that although there does appear to be precense of autocorrelation and heteroskedasticity, after we corrected for those issues we still have significance in all of our variables. 
 
-When checking our residual plots, our model seems to do worse for low fitted values for life expectancy than for higher values of life expectancy. There also appears to be a slight negative curvature in our residuals, indicating that there could be some higher order term missing in our model, or possibly of some geographical relationship that we are not accounting for. We would have liked to include some geographical information in our data but we we were unable to adequately account for geographical differences with our model. We think it would have been interesting to look at the possible different factors that are significant in different geographical areas of the world. For example fitting a model for average life expectancy in North America and fitting a model for life expectancy in Africa and then comparing what variables were significant in either model and trying to figure out why some things may have been significant in one model and not the other. 
+Our model seems to do worse for low fitted values for life expectancy than for higher values of life expectancy. There also appears to be a slight negative curvature in our residuals, indicating that there could be some higher order term missing in our model, or possibly of some geographical relationship that we are not accounting for. 
 
-With this type of study we must make it clear that we are looking at association and not causation. Our results do not indicate that increasing the population in a country will cause an increase in average life expectancy in a country. This is an important distinction to make clear so that our results are not 
+
+When checking our residual plots, our model seems to do worse for low fitted values for life expectancy than for higher values of life expectancy. There also appears to be a slight negative curvature in our residuals, indicating that there could be some higher order term missing in our model, or possibly of some geographical relationship that we are not accounting for. We would have liked to include some geographical information in our data but we we were unable to adequately account for geographical differences with our model. We think it would have been interesting to look at the possible different factors that are significant in different geographical areas of the world. For example fitting a model for average life expectancy in North America and fitting a model for life expectancy in Africa and then comparing what variables were significant in either model and trying to figure out why some things may have been significant in one model and not the other. 
 
 Another limitation of our work is that we could be missing explanatory variables in our initial model and so some of the associations that we found may be significant only because we are missing other explanatory variables. If we had more time we would have liked to found more observations that contained some other variables that were mentioned in some of the papers like smoking or alcohol use. These kinds of lifestyle variables could definitely have an effect on life expectancy but we were unable to find enough country level data on these lifestyle variables to use them in our model. 
 

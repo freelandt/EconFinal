@@ -42,6 +42,10 @@ ggplot(data2, aes(x = growth, y = lifeExp)) + geom_point() + stat_smooth(method 
 ggplot(data2, aes(x = GovHealthSpending, y = lifeExp)) + geom_point() + stat_smooth(method = 'lm')
 ggplot(data2, aes(x = year, y = lifeExp)) + geom_jitter() + stat_smooth(method = 'lm')
 ggplot(data2, aes(x = log(Population), y = lifeExp)) + geom_point() + stat_smooth(method = 'lm')
+
+#Exploratory plots used 
+p1 <- ggplot(data2, aes(x = LaborForce, y = lifeExp)) + geom_point() + stat_smooth(method = 'lm') + xlab("Age 15+ Labor Force Particiaption Rate (%)") + ylab("Life Expectancy (Years)")
+p2 <- ggplot(data2, aes(x = FoodSupply, y = lifeExp)) + geom_point() + stat_smooth(method = 'lm') + xlab("Average Food Available (kilocalories/person/day))") + ylab("Life Expectancy (Years)")
 ```
 
 
